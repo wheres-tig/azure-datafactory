@@ -1,0 +1,16 @@
+{
+	"name": "KostenplaatsenTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "KostenplaatsenTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "Kostenplaatsen"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

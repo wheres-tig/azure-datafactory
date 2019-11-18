@@ -1,0 +1,32 @@
+{
+	"name": "TransformKostenplaatsen",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Afas_kostenplaatsen",
+						"type": "DatasetReference"
+					},
+					"name": "Kostenplaatsen"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Select"
+				}
+			],
+			"script": "\n\nsource(output(\n\t\tWerkgever as string,\n\t\tNaam_werkgever as string,\n\t\tKostenplaats as string,\n\t\tKostenplaats_Omschrijving as string,\n\t\tWerkgever_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true) ~> Kostenplaatsen\nKostenplaatsen select(mapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam = Naam_werkgever,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam = Kostenplaats_Omschrijving\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select\nSelect sink(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
+		}
+	}
+}

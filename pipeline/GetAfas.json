@@ -1,0 +1,87 @@
+{
+	"name": "GetAfas",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachGetConnector",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookupAfasGetConnectors",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupAfasGetConnectors').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "AF_foreach",
+							"type": "AzureFunctionActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"functionName": "GetAfasData",
+								"method": "GET",
+								"headers": {
+									"X-Afas-Token": "<token><version>1</version><data>4D5DD11F0CDF4EFF99689BEBF7DFDD62E1CCDFF94B34FA911B6E3BC0421BECB7</data></token>",
+									"X-Afas-Omgeving": "69564",
+									"X-Afas-Connector": {
+										"value": "@item().GetConnector",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AF_Afas",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "LookupAfasGetConnectors",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						}
+					},
+					"dataset": {
+						"referenceName": "AfasTables",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

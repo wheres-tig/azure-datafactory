@@ -1,0 +1,17 @@
+{
+	"name": "TransformFinance",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2019-11-18T11:26:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
