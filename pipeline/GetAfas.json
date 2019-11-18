@@ -37,8 +37,14 @@
 								"functionName": "GetAfasData",
 								"method": "GET",
 								"headers": {
-									"X-Afas-Token": "<token><version>1</version><data>4D5DD11F0CDF4EFF99689BEBF7DFDD62E1CCDFF94B34FA911B6E3BC0421BECB7</data></token>",
-									"X-Afas-Omgeving": "69564",
+									"X-Afas-Token": {
+										"value": "@pipeline().parameters.AFAStoken",
+										"type": "Expression"
+									},
+									"X-Afas-Omgeving": {
+										"value": "@pipeline().parameters.AFASomgeving",
+										"type": "Expression"
+									},
 									"X-Afas-Connector": {
 										"value": "@item().GetConnector",
 										"type": "Expression"
