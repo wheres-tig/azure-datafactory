@@ -81,6 +81,16 @@
 				}
 			}
 		],
+		"parameters": {
+			"AFASomgeving": {
+				"type": "string",
+				"defaultValue": "69564"
+			},
+			"AFAStoken": {
+				"type": "string",
+				"defaultValue": "<token><version>1</version><data>4D5DD11F0CDF4EFF99689BEBF7DFDD62E1CCDFF94B34FA911B6E3BC0421BECB7</data></token>"
+			}
+		},
 		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
