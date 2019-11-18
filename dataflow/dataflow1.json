@@ -12,13 +12,21 @@
 					"name": "source"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Select1"
 				}
 			],
-			"script": "\n\nsource(output(\n\t\tWerkgever as string,\n\t\tNaam_werkgever as string,\n\t\tKostenplaats as string,\n\t\tKostenplaats_Omschrijving as string,\n\t\tWerkgever_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true) ~> source\nsource select(mapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam = Naam_werkgever,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam = Kostenplaats_Omschrijving\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1"
+			"script": "\n\nsource(output(\n\t\tWerkgever as string,\n\t\tNaam_werkgever as string,\n\t\tKostenplaats as string,\n\t\tKostenplaats_Omschrijving as string,\n\t\tWerkgever_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true) ~> source\nsource select(mapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam = Naam_werkgever,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam = Kostenplaats_Omschrijving\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 sink(input(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tmapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam\n\t)) ~> sink1"
 		}
 	}
 }
