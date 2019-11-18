@@ -14,10 +14,6 @@
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
-					},
 					"name": "sink1"
 				}
 			],
@@ -26,7 +22,7 @@
 					"name": "Select"
 				}
 			],
-			"script": "\n\nsource(output(\n\t\tWerkgever as string,\n\t\tNaam_werkgever as string,\n\t\tKostenplaats as string,\n\t\tKostenplaats_Omschrijving as string,\n\t\tWerkgever_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true) ~> Kostenplaatsen\nKostenplaatsen select(mapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam = Naam_werkgever,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam = Kostenplaats_Omschrijving\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select\nSelect sink(input(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
+			"script": "\n\nsource(output(\n\t\tWerkgever as string,\n\t\tNaam_werkgever as string,\n\t\tKostenplaats as string,\n\t\tKostenplaats_Omschrijving as string,\n\t\tWerkgever_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true) ~> Kostenplaatsen\nKostenplaatsen select(mapColumn(\n\t\tWerkgever,\n\t\tWerkgeverNaam = Naam_werkgever,\n\t\tKostenplaats,\n\t\tKostenplaatsNaam = Kostenplaats_Omschrijving\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select\nSelect sink(dateFormat:'dd/MM/yyyy',\n\ttimestampFormat:'yyyy.MM.dd HH:mm:ss') ~> sink1"
 		}
 	}
 }
