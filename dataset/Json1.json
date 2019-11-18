@@ -1,0 +1,39 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "qv_kostenplaatsen.json",
+				"folderPath": "Afas",
+				"container": "source"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Werkgever": {
+					"type": "string"
+				},
+				"Naam_werkgever": {
+					"type": "string"
+				},
+				"Kostenplaats": {
+					"type": "string"
+				},
+				"Kostenplaats_Omschrijving": {
+					"type": "string"
+				},
+				"Werkgever_2": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
